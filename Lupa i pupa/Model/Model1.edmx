@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище user19Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Department_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Division_name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Group_visit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familiya" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Otchestvo" Type="varchar" MaxLength="50" />
+          <Property Name="Num_Phone" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Date_of_birth" Type="date" />
+          <Property Name="Passport_seria" Type="char" MaxLength="10" />
+          <Property Name="Pasport_nomer" Type="char" MaxLength="10" />
+          <Property Name="Login" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="idGroup" Type="int" />
+          <Property Name="Purpose" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Number_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numer_group" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Personal_visit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fio" Type="nvarchar" MaxLength="50" />
+          <Property Name="Num_Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date_of_birth" Type="date" />
+          <Property Name="Passport_seria" Type="char" MaxLength="10" />
+          <Property Name="Pasport_nomer" Type="char" MaxLength="10" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Purpose" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fio" Type="nvarchar" MaxLength="50" />
+          <Property Name="idDivision" Type="int" />
+          <Property Name="idDepartment" Type="int" />
+          <Property Name="Code" Type="int" />
+        </EntityType>
+        <Association Name="FK_Group_visit_Number_group">
+          <End Role="Number_group" Type="Self.Number_group" Multiplicity="0..1" />
+          <End Role="Group_visit" Type="Self.Group_visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Group_visit">
+              <PropertyRef Name="idGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="idDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Division">
+          <End Role="Division" Type="Self.Division" Multiplicity="0..1" />
+          <End Role="Staff" Type="Self.Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="idDivision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище user19ModelContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Division" EntityType="Self.Division" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Group_visit" EntityType="Self.Group_visit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Number_group" EntityType="Self.Number_group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personal_visit" EntityType="Self.Personal_visit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Group_visit_Number_group" Association="Self.FK_Group_visit_Number_group">
+            <End Role="Number_group" EntitySet="Number_group" />
+            <End Role="Group_visit" EntitySet="Group_visit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Department" Association="Self.FK_Staff_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Division" Association="Self.FK_Staff_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="user19Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="user19Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Department" EntityType="user19Model.Department" />
+          <EntitySet Name="Division" EntityType="user19Model.Division" />
+          <EntitySet Name="Group_visit" EntityType="user19Model.Group_visit" />
+          <EntitySet Name="Number_group" EntityType="user19Model.Number_group" />
+          <EntitySet Name="Personal_visit" EntityType="user19Model.Personal_visit" />
+          <EntitySet Name="Staff" EntityType="user19Model.Staff" />
+          <AssociationSet Name="FK_Staff_Department" Association="user19Model.FK_Staff_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Staff_Division" Association="user19Model.FK_Staff_Division">
+            <End Role="Division" EntitySet="Division" />
+            <End Role="Staff" EntitySet="Staff" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Group_visit_Number_group" Association="user19Model.FK_Group_visit_Number_group">
+            <End Role="Number_group" EntitySet="Number_group" />
+            <End Role="Group_visit" EntitySet="Group_visit" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Department_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="user19Model.FK_Staff_Department" FromRole="Department" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Division">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Division_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Staff" Relationship="user19Model.FK_Staff_Division" FromRole="Division" ToRole="Staff" />
+        </EntityType>
+        <EntityType Name="Group_visit">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familiya" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Otchestvo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Num_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="Passport_seria" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Pasport_nomer" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idGroup" Type="Int32" />
+          <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Number_group" Relationship="user19Model.FK_Group_visit_Number_group" FromRole="Group_visit" ToRole="Number_group" />
+        </EntityType>
+        <EntityType Name="Number_group">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numer_group" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Group_visit" Relationship="user19Model.FK_Group_visit_Number_group" FromRole="Number_group" ToRole="Group_visit" />
+        </EntityType>
+        <EntityType Name="Personal_visit">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Num_Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date_of_birth" Type="DateTime" Precision="0" />
+          <Property Name="Passport_seria" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Pasport_nomer" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Login" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Purpose" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="idDivision" Type="Int32" />
+          <Property Name="idDepartment" Type="Int32" />
+          <Property Name="Code" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="user19Model.FK_Staff_Department" FromRole="Staff" ToRole="Department" />
+          <NavigationProperty Name="Division" Relationship="user19Model.FK_Staff_Division" FromRole="Staff" ToRole="Division" />
+        </EntityType>
+        <Association Name="FK_Staff_Department">
+          <End Type="user19Model.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="user19Model.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="idDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Staff_Division">
+          <End Type="user19Model.Division" Role="Division" Multiplicity="0..1" />
+          <End Type="user19Model.Staff" Role="Staff" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Division">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Staff">
+              <PropertyRef Name="idDivision" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Group_visit_Number_group">
+          <End Type="user19Model.Number_group" Role="Number_group" Multiplicity="0..1" />
+          <End Type="user19Model.Group_visit" Role="Group_visit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Number_group">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Group_visit">
+              <PropertyRef Name="idGroup" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище user19ModelContainer" CdmEntityContainer="user19Entities">
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="user19Model.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Department_name" ColumnName="Department_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Division">
+            <EntityTypeMapping TypeName="user19Model.Division">
+              <MappingFragment StoreEntitySet="Division">
+                <ScalarProperty Name="Division_name" ColumnName="Division_name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Group_visit">
+            <EntityTypeMapping TypeName="user19Model.Group_visit">
+              <MappingFragment StoreEntitySet="Group_visit">
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="idGroup" ColumnName="idGroup" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Pasport_nomer" ColumnName="Pasport_nomer" />
+                <ScalarProperty Name="Passport_seria" ColumnName="Passport_seria" />
+                <ScalarProperty Name="Date_of_birth" ColumnName="Date_of_birth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Num_Phone" ColumnName="Num_Phone" />
+                <ScalarProperty Name="Otchestvo" ColumnName="Otchestvo" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Familiya" ColumnName="Familiya" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Number_group">
+            <EntityTypeMapping TypeName="user19Model.Number_group">
+              <MappingFragment StoreEntitySet="Number_group">
+                <ScalarProperty Name="Numer_group" ColumnName="Numer_group" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personal_visit">
+            <EntityTypeMapping TypeName="user19Model.Personal_visit">
+              <MappingFragment StoreEntitySet="Personal_visit">
+                <ScalarProperty Name="Purpose" ColumnName="Purpose" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Pasport_nomer" ColumnName="Pasport_nomer" />
+                <ScalarProperty Name="Passport_seria" ColumnName="Passport_seria" />
+                <ScalarProperty Name="Date_of_birth" ColumnName="Date_of_birth" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Num_Phone" ColumnName="Num_Phone" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Staff">
+            <EntityTypeMapping TypeName="user19Model.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="idDepartment" ColumnName="idDepartment" />
+                <ScalarProperty Name="idDivision" ColumnName="idDivision" />
+                <ScalarProperty Name="Fio" ColumnName="Fio" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

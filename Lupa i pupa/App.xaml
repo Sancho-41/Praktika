@@ -1,0 +1,9 @@
+﻿<Application x:Class="Lupa_i_pupa.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Lupa_i_pupa"
+             StartupUri="Main.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
